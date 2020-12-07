@@ -16,8 +16,12 @@
         <p class="subtitle">Veja os eventos dos próximos dias</p>
         <div id="cards-container" class="row">
             @foreach ($events as $event)
-                <div class="col-md-3">
-                    <img src="/img/placeholder.svg" alt="{{ $event->title }}">
+                <div class="card col-md-3">
+                    @if($event->image)
+                <img src="img/events/{{$event->image}}" alt="{{ $event->title }}">
+                @else
+                <img src="img/placeholder.svg" alt="{{ $event->title }}">
+                @endif
                     <div class="card-body">
                         <p class="card-date">06/12/2020</p>
                         <h5 class="card-title">{{ $event->title }}</h5>
