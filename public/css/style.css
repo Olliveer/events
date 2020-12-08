@@ -37,7 +37,7 @@ header {
     background-color: #D4EDDA;
     color: #155724;
     border: 1px solid #C3E6CB;
-    width:100%;
+    width: 100%;
     text-align: center;
     padding: 10px;
 }
@@ -152,13 +152,60 @@ header {
     font-weight: bold;
 }
 
-#event-create-container input,
-#event-create-container select,
-#event-create-container textarea {
+#event-create-container input, #event-create-container select, #event-create-container textarea {
     font-size: 12px;
 }
 
 /* END EVENT CREATE PAGE */
+
+/* EVENT PAGE */
+
+#image-container, #info-container {
+    margin-top: 30px;
+}
+
+#image-container img {
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+#info-container h1 {
+    font-size: 36px;
+    font-weight: 900;
+}
+
+#info-container p {
+    margin: 0;
+    font-size: 14px;
+    display: flex;
+}
+
+#info-container h3,
+#description-container h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#info-container ion-icon {
+    font-size: 20px;
+    color: #F2A340;
+    margin-right: 5px;
+}
+
+#info-container #event-submit {
+    margin: 20px 0;
+}
+
+#items-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+#items-list li {
+    display: flex;
+}
+
+/* END EVENT PAGE */
 
 /* FOOTER */
 
