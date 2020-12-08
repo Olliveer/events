@@ -7,7 +7,11 @@
 <div class="col-md-10 offset-md-1" id="event-container">
     <div class="row">
         <div id="image-container" class="col-md-6">
+            @unless ($event->image == null)
             <img src="/img/events/{{ $event->image }}" class="image-fluid" alt="{{ $event->title }}">
+            @else 
+            <img src="/img/placeholder.svg" class="image-fluid" alt="{{ $event->title }}">
+            @endunless
         </div>
         <div id="info-container" class="col-md-6">
             <h1>{{ $event->title }}</h1>

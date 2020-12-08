@@ -56,7 +56,11 @@ class EventController extends Controller
 
             $requestImage->move(public_path('img/events'), $imageName);
 
-            $event->image = $imageName;
+            if ($requestImage == "null") {
+                $event->image = "null";
+            } else {
+                $event->image = $imageName;
+            }
         }
 
 
