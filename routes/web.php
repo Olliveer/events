@@ -21,3 +21,7 @@ Route::get('/events/{id}', [EventController::class, 'show']);
 Route::get('/login', [EventController::class, 'login']);
 Route::get('/register', [EventController::class, 'register']);
 
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
