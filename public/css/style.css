@@ -205,6 +205,10 @@ header {
     display: flex;
 }
 
+#description-container {
+    margin-top: 30px;
+}
+
 /* END EVENT PAGE */
 
 /* FOOTER */
