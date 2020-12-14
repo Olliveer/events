@@ -79,6 +79,12 @@ class EventController extends Controller
         return redirect('/')->with('msg', 'Evento criado com sucesso!');
     }
 
+    /**
+     * Show event blade
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function show($id)
     {
         $event = Event::findOrFail($id);
