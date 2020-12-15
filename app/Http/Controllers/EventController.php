@@ -13,12 +13,11 @@ class EventController extends Controller
 
         $search = request('search');
 
-        if($search) {
+        if ($search) {
 
             $events = Event::where([
                 ['title', 'like', '%' . $search . '%']
             ])->get();
-
         } else {
             $events = Event::all();
         }
@@ -34,6 +33,7 @@ class EventController extends Controller
         return view('events.create');
     }
 
+
     public function store(Request $request)
     {
 
@@ -45,7 +45,7 @@ class EventController extends Controller
         $event->private = $request->private;
         $event->description = $request->description;
         $event->items = $request->items;
-        
+
 
         // IMAGE UPLOADE
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -77,6 +77,20 @@ class EventController extends Controller
         }
 
         return redirect('/')->with('msg', 'Evento criado com sucesso!');
+    }
+
+    /**
+     * DASHBOARD 
+     *
+     * @return void
+     */
+    public function dashboard()
+    {
+        $user = auth()->user();
+
+        $events = $user->events;
+
+        return view('events.dashboard', ['events' => $events]);
     }
 
     /**
