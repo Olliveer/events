@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    /**
+     * INDEX AND SEARCH EVENT
+     *
+     * @return void
+     */
     public function index()
     {
 
@@ -28,12 +33,23 @@ class EventController extends Controller
         ]);
     }
 
+
+    /**
+     * VIEW CREATE FORM
+     *
+     * @return void
+     */
     public function create()
     {
         return view('events.create');
     }
 
-
+    /**
+     * EVENT CREATE
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request)
     {
 
@@ -47,7 +63,7 @@ class EventController extends Controller
         $event->items = $request->items;
 
 
-        // IMAGE UPLOADE
+        // IMAGE UPLOAD
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
 
             $requestImage = $request->image;
@@ -80,6 +96,61 @@ class EventController extends Controller
     }
 
     /**
+     * GET VALUES FOR EDIT
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function edit($id)
+    {
+        $event = Event::findOrFail($id);
+
+        return view('events.edit', ['event' => $event]);
+    }
+
+    /**
+     * UPDATE EVENT
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function update(Request $request)
+    {
+        $data = $request->all();
+
+        // IMAGE UPLOADE
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+
+            $requestImage = $request->image;
+            $extension = $requestImage->extension();
+
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime('now'));
+
+            $requestImage->move(public_path('img/events'), $imageName);
+
+
+            $data['image'] = $imageName;
+        }
+
+        Event::findOrFail($request->id)->update($data);
+
+        return redirect('/dashboard')->with('msg', 'Evento atualizado com sucesso');
+    }
+
+    /**
+     * DELETE
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function destroy($id)
+    {
+        Event::findOrFail($id)->delete();
+
+        return redirect('/dashboard')->with('msg', 'Evento excluído com sucesso');
+    }
+
+    /**
      * DASHBOARD 
      *
      * @return void
@@ -94,7 +165,7 @@ class EventController extends Controller
     }
 
     /**
-     * Show event blade
+     * SHOW EVENT BLADE
      *
      * @param [type] $id
      * @return void
@@ -108,16 +179,14 @@ class EventController extends Controller
         return view('events.show', ['event' => $event, 'eventOwner' => $eventOwner]);
     }
 
-    /**
-     * Delete
-     *
-     * @param [type] $id
-     * @return void
-     */
-    public function destroy($id)
+    public function joinEvent($id)
     {
-        Event::findOrFail($id)->delete();
+        $user = auth()->user();
 
-        return redirect('/dashboard')->with('msg','Evento excluído com sucesso');
+        $user->eventsAsParticipant()->attach($id);
+
+        $event = Event::findOrFail($id);
+
+        return redirect('/dashboard')->with('msg', 'Sua presença está confirmada no '. $event->title);
     }
 }

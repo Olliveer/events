@@ -10,7 +10,7 @@
     <div class="col-md-10 offset-md-1 dashboard-events-container">      
         @if(count($events) > 0)
             <table class="table">
-                <thead>
+                <thead class="thead-events">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nome</th>
@@ -25,7 +25,7 @@
                             <td><a href="/events/{{ $event->id }}">{{ $event->title }}</a></td>
                             <td>0</td>
                             <td>
-                                <a href="#" class="btn btn-info edit-btn"><ion-icon name="create-outline"></ion-icon> Editar</a>
+                                <a href="/events/edit/{{$event->id}}" class="btn btn-info edit-btn"><ion-icon name="create-outline"></ion-icon> Editar</a>
                                 <form action="/events/{{ $event->id }}" method="POST">
                                     @csrf
                                     @method('DELETE')
