@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
 use App\Models\User;
+use App\Models\Event;
+use App\Models\EventList;
+use App\Models\EventUser;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -179,14 +181,27 @@ class EventController extends Controller
         return view('events.show', ['event' => $event, 'eventOwner' => $eventOwner]);
     }
 
+
+    /**
+     * JOIN EVENT
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function joinEvent($id)
     {
         $user = auth()->user();
-
-        $user->eventsAsParticipant()->attach($id);
-
         $event = Event::findOrFail($id);
 
-        return redirect('/dashboard')->with('msg', 'Sua presença está confirmada no '. $event->title);
+        $eventList = EventList::where('user_id', '=', $user->id)->Where('event_id', '=', $event->id)->exists();
+        
+        if (!$eventList) {
+            $user->eventsAsParticipant()->attach($id);
+
+            return redirect('/dashboard')->with('msg', 'Sua presença está confirmada no ' . $event->title);
+        } else {
+
+            return redirect('/dashboard')->with('msg', 'Você já está participando desse evento ' . $event->title);
+        }
     }
 }
