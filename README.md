@@ -21,8 +21,17 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-
-
+## Installation && Execution
+```bash
+ - copy .env.example and rename to .env
+ - change db configs
+ ```
+ ## Terminal commands
+```bash
+ - composer install
+ - php artisan migrate
+ - php artisan serve
+```
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

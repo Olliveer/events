@@ -200,8 +200,6 @@ class EventController extends Controller
             }
         }
 
-
-
         $eventOwner = User::where('id', $event->user_id)->first()->toArray();
 
         return view(
